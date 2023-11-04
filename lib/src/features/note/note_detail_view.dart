@@ -7,7 +7,7 @@ class NoteDetailView extends StatelessWidget {
     super.key,
   });
 
-  static const String routeName = '/note-detail-view';
+  static const String routeName = '/note_detail_view';
 
   final NoteModel note;
 
