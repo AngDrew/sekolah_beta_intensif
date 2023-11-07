@@ -14,8 +14,17 @@ class NoteDetailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Note detail'),
+      ),
       body: ListView(
         children: <Widget>[
+          IconButton(
+            onPressed: () {
+              Navigator.pop(context, 123);
+            },
+            icon: const Icon(Icons.arrow_back),
+          ),
           Text(note.title),
           Text(note.content),
         ],

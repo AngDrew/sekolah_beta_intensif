@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hello_world/src/features/note/note.dart';
+import 'package:hello_world/src/features/note/note_detail_view.dart';
+
+import 'note_model.dart';
 
 class NotesListView extends StatefulWidget {
   const NotesListView({super.key});
@@ -10,6 +14,12 @@ class NotesListView extends StatefulWidget {
 }
 
 class _NotesListViewState extends State<NotesListView> {
+  List<NoteModel> notes = [
+    const NoteModel(title: 'title1', content: 'content 1'),
+    const NoteModel(title: 'title2', content: 'content 2'),
+    const NoteModel(title: 'title3', content: 'content 3'),
+    const NoteModel(title: 'title4', content: 'content 4'),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +27,15 @@ class _NotesListViewState extends State<NotesListView> {
       appBar: AppBar(
         title: const Text('Notes'),
       ),
-      body: const SizedBox.shrink(),
+      body: ListView(
+        children: <Widget>[
+          for (final note in notes) NoteTile(note: note),
+        ],
+      ),
     );
   }
+
+  Widget functionBuilder(BuildContext context) => const NoteDetailView(
+        note: NoteModel(title: 'ini title', content: 'ini content'),
+      );
 }

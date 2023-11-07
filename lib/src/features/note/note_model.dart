@@ -6,4 +6,9 @@ class NoteModel {
 
   final String title;
   final String content;
+
+  @override
+  String toString() {
+    return title;
+  }
 }
