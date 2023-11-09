@@ -1,4 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:hello_world/src/features/todo/add_todo_view.dart';
+import 'package:hello_world/src/features/todo/todo_model.dart';
 
 class TodoView extends StatefulWidget {
   const TodoView({super.key});
@@ -11,41 +15,43 @@ class TodoView extends StatefulWidget {
 
 class _TodoViewState extends State<TodoView> {
   // private
-  final List<bool> _todos = [];
+  final List<TodoModel> _todos = [];
 
-  // public
-  final List<bool> todos = [];
+  void Function() testing = () {};
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: ListView(
-          children: _todos
-              .map(
-                (element) => CheckboxListTile.adaptive(
-                  value: element,
-                  onChanged: (newValue) {
-                    _todos[_todos.indexOf(element)] = newValue ?? false;
-                    // setState(() {
-                    //   _todos[_todos.indexOf(element)] = newValue ?? false;
-                    // });
+          padding: const EdgeInsets.all(16.0),
+          children: [
+            ElevatedButton(
+              onPressed: () async {
+                Object? todoResult = await Navigator.pushNamed(context, AddTodoView.routeName);
+                if (todoResult is! TodoModel) return;
+
+                setState(() {
+                  _todos.add(todoResult);
+                });
+              },
+              child: const Text('Add Todo'),
+            ),
+            for (final todo in _todos)
+              ListTile(
+                title: Text(todo.name),
+                trailing: Checkbox(
+                  value: todo.selected,
+                  onChanged: (bool? newValue) {
+                    setState(() {
+                      todo.selected = newValue;
+                    });
                   },
-                  title: Text('Todo ${_todos.indexOf(element)}'),
                 ),
-              )
-              .toList(),
+              ),
+          ],
         ),
       ),
     );
   }
-}
-
-void testingFunction() {
-  // contoh penggunaan private class
-  _TodoViewState().todos;
-
-  // segala sesuatu yang dimulai dengan _ itu private
-  // private class, private variable, private function
-  // private artinya hanya bisa diakses di dalam file itu saja atau di dalam class itu saja
 }

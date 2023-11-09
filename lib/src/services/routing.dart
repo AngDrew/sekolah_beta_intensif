@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hello_world/src/features/todo/add_todo_view.dart';
+import 'package:hello_world/src/features/todo/todo_view.dart';
 
 import '../features/note/note.dart';
 
-Route onGenerateRoute(RouteSettings settings) {
+Route<dynamic> onGenerateRoute(RouteSettings settings) {
   // jika perlu menambahkan custom transition, gunakan `PageRouteBuilder` disini:
   // if(settings.name == TestingPage.routeName)
   //   return PageRouteBuilder(...)
@@ -10,11 +12,14 @@ Route onGenerateRoute(RouteSettings settings) {
 
   // untuk mengurangi redundansi kode, kita bisa memisahkan routing seperti ini:
   // sehingga kita tidak harus menulis `MaterialPageRoute` di setiap route yang kita buat
-  return MaterialPageRoute(
+  return MaterialPageRoute<dynamic>(
     builder: (context) {
       
+      // if (name == '/') {
+      //   return const NotesListView();
+      // }
       if (name == '/') {
-        return const NotesListView();
+        return const TodoView();
       }
       if (name == NoteDetailView.routeName) {
         // kita tahu bahwa route ini memerlukan arguments,
@@ -29,6 +34,9 @@ Route onGenerateRoute(RouteSettings settings) {
         }
 
         return const MissingArgumentView();
+      }
+      if (name == AddTodoView.routeName) {
+        return const AddTodoView();
       }
 
       return const Scaffold(
